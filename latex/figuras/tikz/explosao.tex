@@ -11,10 +11,12 @@
     child {node {} child {node {}} child {node {}} child {node {}}}
     child {node {} child {node {}} child {node {}} child {node {}}};
 
-  % Contagem por nível (rótulos à esquerda)
-  \node[rectangle, draw=none, fill=none, font=\small, text=btTexto] at (-3.6, 0)    {$1$};
-  \node[rectangle, draw=none, fill=none, font=\small, text=btTexto] at (-3.6, -1.2) {$3$};
-  \node[rectangle, draw=none, fill=none, font=\small, text=btTexto] at (-3.6, -2.4) {$9$};
-  \node[rectangle, draw=none, fill=none, font=\small\itshape, text=btNeutro, align=left, anchor=west]
-    at (2.6, -1.2) {$\dots$ e segue\\ crescendo};
+  % Contagem de nós por nível (rótulos à esquerda, alinhados a cada nível)
+  \node[draw=none, fill=none, anchor=east, font=\small, text=btTexto] at (-4.2, 0)    {$1$};
+  \node[draw=none, fill=none, anchor=east, font=\small, text=btTexto] at (-4.2, -1.2) {$3$};
+  \node[draw=none, fill=none, anchor=east, font=\small, text=btTexto] at (-4.2, -2.4) {$9$};
+
+  % Anotação centralizada abaixo da árvore (sem sobreposição)
+  \node[draw=none, fill=none, font=\small\itshape, text=btNeutro]
+    at (0, -3.4) {e o número de possibilidades segue crescendo\dots};
 \end{tikzpicture}
