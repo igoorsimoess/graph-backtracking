@@ -1,0 +1,14 @@
+% =====================================================================
+%  Secao 7: Poda (Pruning)
+% =====================================================================
+\section{Poda (Pruning)}
+
+Uma importante otimização do Backtracking é chamada de poda, ou \emph{pruning}.
+
+A ideia é simples. Se já sabemos que um caminho não pode levar à solução, não existe motivo para continuar explorando suas ramificações. Em vez disso, o algoritmo descarta imediatamente aquele caminho.
+
+\figura{fig:poda}%
+  {Ramos inviáveis são eliminados antecipadamente, reduzindo significativamente o esforço computacional.}%
+  {figuras/tikz/poda}
+
+A poda é responsável por tornar o Backtracking muito mais eficiente em diversos problemas.

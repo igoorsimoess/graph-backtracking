@@ -1,0 +1,28 @@
+% =====================================================================
+%  Secao 2: Por que o Backtracking Existe?
+% =====================================================================
+\section{Por que o Backtracking Existe?}
+
+Antes de estudar como o algoritmo funciona, é importante entender por que ele foi criado.
+
+Considere o seguinte problema:
+
+Uma senha possui quatro posições e cada posição pode conter um dos números 1, 2 ou 3. Quantas combinações existem?
+\[
+  3 \times 3 \times 3 \times 3 = 81 \text{ combinações.}
+\]
+
+Agora imagine uma senha de oito posições contendo dez possibilidades para cada posição.
+\[
+  10^{8} = 100{.}000{.}000 \text{ combinações.}
+\]
+
+Percebe-se rapidamente que o número de possibilidades cresce de forma extremamente acelerada.
+
+Muitos problemas reais apresentam exatamente esse comportamento. Nesses casos, testar todas as combinações possíveis pode se tornar muito caro computacionalmente.
+
+O Backtracking surge como uma forma organizada de explorar alternativas, descartando rapidamente caminhos que não possuem chance de gerar uma solução válida.
+
+\figura{fig:explosao}%
+  {A quantidade de combinações cresce de forma acelerada à medida que aumentam as posições e as opções por posição.}%
+  {figuras/tikz/explosao}

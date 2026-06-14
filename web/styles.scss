@@ -1,0 +1,31 @@
+/*-- scss:defaults --*/
+// Paleta consistente com a versão LaTeX
+$primary:    #1F6FEB;  // decisão
+$body-color: #1B1F24;
+$link-color: #1F6FEB;
+
+$font-size-root: 17px;
+
+/*-- scss:rules --*/
+// cores semânticas reaproveitadas (válido / podado / não explorado)
+:root {
+  --bt-decisao: #1F6FEB;
+  --bt-valido:  #2E9E5B;
+  --bt-podado:  #D1453B;
+  --bt-neutro:  #8A8F98;
+  --bt-fundo:   #F4F6F8;
+}
+
+.quarto-title-block .quarto-title .title { font-weight: 700; }
+
+// Callouts um pouco mais suaves
+.callout { border-radius: 8px; }
+
+// Legendas de figura
+figcaption, .figure-caption {
+  color: var(--bt-neutro);
+  font-size: 0.9rem;
+}
+
+// Controles de animação centralizados
+.cell-output-display { text-align: center; }

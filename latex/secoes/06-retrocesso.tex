@@ -1,0 +1,22 @@
+% =====================================================================
+%  Secao 6: O Processo de Retrocesso
+% =====================================================================
+\section{O Processo de Retrocesso}
+
+O nome Backtracking vem justamente da capacidade de retornar para decisões anteriores.
+
+Suponha que um algoritmo esteja tentando resolver um problema. Após realizar várias escolhas consecutivas, ele descobre que a última decisão torna impossível alcançar uma solução.
+
+Nesse momento, em vez de continuar desperdiçando recursos, o algoritmo volta para o último ponto de decisão e tenta outra alternativa. Esse processo pode ocorrer diversas vezes até que uma solução válida seja encontrada.
+
+\begin{passos}[Em outras palavras]
+Escolhe. Testa. Avança. Erra. Volta. Tenta novamente.
+\end{passos}
+
+\figura{fig:retrocesso}%
+  {Ao encontrar um caminho inviável, o algoritmo retorna ao último ponto de decisão e tenta outra alternativa.}%
+  {figuras/tikz/retrocesso}
+
+\begin{ideiachave}
+Esse comportamento é o coração do Backtracking.
+\end{ideiachave}

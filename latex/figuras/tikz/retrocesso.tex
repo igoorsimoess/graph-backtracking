@@ -1,0 +1,25 @@
+% Figura V6: retrocesso (caminho inválido -> volta -> tenta outra alternativa)
+\begin{tikzpicture}[
+    >=Stealth,
+    nd/.style={circle, draw, thick, minimum size=8mm, inner sep=0pt, font=\small},
+  ]
+  \node[nd, draw=btDecisao, fill=btDecisao!15] (r)  at (0,0)     {};
+  \node[nd, draw=btNeutro,  fill=btFundo]       (a)  at (-1.8,-1.7) {};
+  \node[nd, draw=btValido,  fill=btValido!18]   (b)  at ( 1.8,-1.7) {};
+  \node[nd, draw=btPodado,  fill=btPodado!18]   (a1) at (-1.8,-3.4) {};
+  \node[nd, draw=btValido,  fill=btValido!18]   (b1) at ( 1.8,-3.4) {};
+
+  \draw[draw=btNeutro, thick]     (r) -- (a);
+  \draw[draw=btValido, very thick] (r) -- (b);
+  \draw[draw=btNeutro, thick]     (a) -- (a1);
+  \draw[draw=btValido, very thick] (b) -- (b1);
+
+  % X no nó inválido
+  \draw[btPodado, very thick] ($(a1)+(-0.16,-0.16)$) -- ($(a1)+(0.16,0.16)$);
+  \draw[btPodado, very thick] ($(a1)+(-0.16,0.16)$) -- ($(a1)+(0.16,-0.16)$);
+
+  % seta de retorno
+  \draw[->, draw=btPodado, thick, dashed] (a1) to[bend right=55] (r);
+  \node[font=\scriptsize, text=btPodado] at (-3.0,-1.7) {volta};
+  \node[font=\scriptsize, text=btValido] at ( 3.0,-1.7) {tenta outra};
+\end{tikzpicture}

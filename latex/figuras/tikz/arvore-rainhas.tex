@@ -1,0 +1,45 @@
+% Figura V10: árvore de busca das 4 Rainhas (ramos podados + caminho da solução)
+% Nós rotulados com a LINHA escolhida para a rainha de cada nível.
+\begin{tikzpicture}[
+    >=Stealth,
+    nd/.style={circle, draw, thick, minimum size=8mm, inner sep=0pt, font=\small},
+    raiz/.style={nd, draw=btDecisao, fill=btDecisao!15},
+    bom/.style={nd, draw=btValido, fill=btValido!18, text=btTexto},
+    ruim/.style={nd, draw=btPodado, fill=btPodado!18, text=btTexto},
+  ]
+  % raiz
+  \node[raiz] (r) at (0,0) {};
+
+  % nível 1: escolha da linha da 1a rainha (1,2,3,4) -> a "3" segue
+  \node[ruim] (a1) at (-3.3,-1.8) {1};
+  \node[ruim] (a2) at (-1.1,-1.8) {2};
+  \node[bom]  (a3) at ( 1.1,-1.8) {3};
+  \node[ruim] (a4) at ( 3.3,-1.8) {4};
+
+  % nível 2: filhos de a3 -> a "1" segue
+  \node[ruim] (b1) at ( 0.0,-3.6) {2};
+  \node[bom]  (b2) at ( 1.1,-3.6) {1};
+  \node[ruim] (b3) at ( 2.2,-3.6) {4};
+
+  % solução final
+  \node[bom] (sol) at (1.1,-5.4) {\ding{52}};
+
+  % arestas
+  \draw[draw=btNeutro,  thick]      (r) -- (a1);
+  \draw[draw=btNeutro,  thick]      (r) -- (a2);
+  \draw[draw=btValido,  very thick] (r) -- (a3);
+  \draw[draw=btNeutro,  thick]      (r) -- (a4);
+  \draw[draw=btNeutro,  thick]      (a3) -- (b1);
+  \draw[draw=btValido,  very thick] (a3) -- (b2);
+  \draw[draw=btNeutro,  thick]      (a3) -- (b3);
+  \draw[draw=btValido,  very thick] (b2) -- (sol);
+
+  % X nos nós podados
+  \foreach \p in {a1,a2,a4,b1,b3}{
+    \draw[btPodado, very thick] ($(\p)+(-0.15,-0.15)$) -- ($(\p)+(0.15,0.15)$);
+    \draw[btPodado, very thick] ($(\p)+(-0.15,0.15)$) -- ($(\p)+(0.15,-0.15)$);
+  }
+
+  % rótulo da solução
+  \node[font=\scriptsize, text=btValido, right=2mm of sol] {$V=(3,1,4,2)$};
+\end{tikzpicture}

@@ -1,0 +1,75 @@
+% =====================================================================
+%  comandos.tex  ->  caixas didaticas e placeholder de figura
+% =====================================================================
+
+% ---------- Caixa: Ideia-chave ---------------------------------------
+\newtcolorbox{ideiachave}[1][Ideia-chave]{
+  enhanced, breakable,
+  colback=btFundo, colframe=btDecisao,
+  fonttitle=\bfseries, title=#1,
+  left=10pt, right=10pt, top=8pt, bottom=8pt,
+  boxrule=0.8pt, arc=3pt
+}
+
+% ---------- Caixa: Passo a passo -------------------------------------
+\newtcolorbox{passos}[1][Passo a passo]{
+  enhanced, breakable,
+  colback=white, colframe=btValido,
+  fonttitle=\bfseries, title=#1,
+  left=10pt, right=10pt, top=8pt, bottom=8pt,
+  boxrule=0.8pt, arc=3pt
+}
+
+% ---------- Caixa: Atencao / limitacao -------------------------------
+\newtcolorbox{atencao}[1][Atencao]{
+  enhanced, breakable,
+  colback=white, colframe=btPodado,
+  fonttitle=\bfseries, title=#1,
+  left=10pt, right=10pt, top=8pt, bottom=8pt,
+  boxrule=0.8pt, arc=3pt
+}
+
+% ---------- Caixa: Quadro-resumo executivo ---------------------------
+\newtcolorbox{quadroresumo}[1][Em resumo]{
+  enhanced, breakable,
+  colback=btFundo, colframe=btNeutro,
+  fonttitle=\bfseries\color{btTexto}, title=#1,
+  left=10pt, right=10pt, top=8pt, bottom=8pt,
+  boxrule=0.8pt, arc=3pt
+}
+
+% ---------------------------------------------------------------------
+%  \figura{rotulo}{legenda}{caminho do arquivo TikZ (sem extensao)}
+%  Insere uma figura TikZ finalizada, centralizada, com legenda e label.
+% ---------------------------------------------------------------------
+\newcommand{\figura}[3]{%
+  \begin{figure}[H]
+    \centering
+    \input{#3}
+    \caption{#2}
+    \label{#1}
+  \end{figure}%
+}
+
+% ---------------------------------------------------------------------
+%  \figuraplaceholder{rotulo}{legenda}{descricao da figura desejada}
+%  Reserva o espaco de uma figura ainda nao produzida, mostrando uma
+%  caixa tracejada com a descricao do que ela deve conter. Mantem a
+%  numeracao e a legenda corretas (\ref e lista de figuras funcionam).
+% ---------------------------------------------------------------------
+\newcommand{\figuraplaceholder}[3]{%
+  \begin{figure}[H]
+    \centering
+    \begin{tcolorbox}[
+        enhanced, width=0.85\linewidth, halign=center, valign=center,
+        colback=btFundo, frame hidden,
+        borderline={0.8pt}{0pt}{btNeutro,dashed},
+        arc=4pt, height=4.5cm
+      ]
+      {\bfseries\color{btNeutro} [ FIGURA A PRODUZIR ]}\\[6pt]
+      {\small\itshape #3}
+    \end{tcolorbox}
+    \caption{#2}
+    \label{#1}
+  \end{figure}%
+}

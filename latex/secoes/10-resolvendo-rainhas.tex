@@ -1,0 +1,26 @@
+% =====================================================================
+%  Secao 10: Resolvendo as 4 Rainhas com Backtracking
+% =====================================================================
+\section{Resolvendo as 4 Rainhas com Backtracking}
+
+O algoritmo inicia posicionando a primeira rainha. Em seguida, tenta posicionar a segunda. Caso encontre conflito, retorna e tenta outra posição. O processo continua até que todas as rainhas sejam posicionadas corretamente.
+
+Uma solução válida é:
+\[
+  V = (3,\ 1,\ 4,\ 2)
+\]
+
+Isso significa:
+
+\begin{itemize}[leftmargin=1.4em]
+  \item Coluna 1 $\rightarrow$ Linha 3
+  \item Coluna 2 $\rightarrow$ Linha 1
+  \item Coluna 3 $\rightarrow$ Linha 4
+  \item Coluna 4 $\rightarrow$ Linha 2
+\end{itemize}
+
+Observe que nenhuma rainha consegue atacar outra.
+
+\figura{fig:tabuleiro-solucao}%
+  {Solução válida do problema das 4 Rainhas: $V=(3,1,4,2)$.}%
+  {figuras/tikz/tabuleiro}

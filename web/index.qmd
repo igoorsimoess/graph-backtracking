@@ -1,0 +1,349 @@
+---
+title: "Backtracking"
+subtitle: "Resolvendo problemas através da exploração de possibilidades"
+author:
+  - "César José Santana da Silva"
+  - "Igor Simões"
+date: "2026"
+date-format: "YYYY"
+abstract: |
+  Diversos problemas computacionais exigem a exploração de múltiplas possibilidades até que uma solução válida seja encontrada. Em muitos casos, testar todas as alternativas é inviável devido à grande quantidade de combinações possíveis. Para lidar com esse desafio, foi desenvolvida a técnica de Backtracking, um método que constrói soluções gradualmente e retorna para estados anteriores sempre que identifica que um determinado caminho não levará ao resultado desejado.
+
+  Este trabalho apresenta os conceitos fundamentais do Backtracking, suas características, seu funcionamento e aplicações práticas, utilizando exemplos simples e intuitivos para facilitar o entendimento do leitor.
+abstract-title: "Resumo"
+nocite: |
+  @*
+---
+
+```{python}
+#| label: setup
+#| include: false
+import matplotlib.pyplot as plt
+from matplotlib import animation
+from matplotlib import rcParams
+from IPython.display import HTML
+
+# paleta consistente com a versão LaTeX
+COR = {
+    "decisao": "#1F6FEB",
+    "valido":  "#2E9E5B",
+    "podado":  "#D1453B",
+    "neutro":  "#8A8F98",
+    "fundo":   "#F4F6F8",
+}
+rcParams["animation.embed_limit"] = 60
+rcParams["font.size"] = 11
+```
+
+::: {.callout-important title="Em resumo" appearance="default"}
+O Backtracking é uma estratégia baseada em tentativa e erro inteligente. Ao invés de explorar todas as possibilidades cegamente, o algoritmo constrói soluções passo a passo, verificando constantemente se ainda existe chance de alcançar o resultado desejado. Sempre que identifica um caminho inviável, retorna para a última decisão válida e tenta uma alternativa diferente.
+:::
+
+**Palavras-chave:** Backtracking, Grafos, Algoritmos, Busca Exaustiva, Árvores de Busca.
+
+# Introdução
+
+Imagine que você está tentando sair de um labirinto.
+
+Ao chegar a uma bifurcação, você escolhe um dos caminhos disponíveis. Caso encontre um beco sem saída, volta para a última bifurcação e tenta outra direção.
+
+Essa estratégia parece natural para seres humanos. Curiosamente, ela também é utilizada por computadores para resolver diversos tipos de problemas.
+
+A técnica responsável por esse comportamento é chamada de *Backtracking*.
+
+::: {.callout-note title="Ideia-chave"}
+O termo Backtracking pode ser traduzido livremente como "voltar atrás". Seu objetivo é explorar diferentes possibilidades até encontrar uma solução válida, retornando sempre que uma escolha realizada anteriormente impedir o progresso da busca.
+:::
+
+# Por que o Backtracking Existe?
+
+Antes de estudar como o algoritmo funciona, é importante entender por que ele foi criado.
+
+Considere o seguinte problema: uma senha possui quatro posições e cada posição pode conter um dos números 1, 2 ou 3. Quantas combinações existem?
+
+$$ 3 \times 3 \times 3 \times 3 = 81 \text{ combinações.} $$
+
+Agora imagine uma senha de oito posições contendo dez possibilidades para cada posição:
+
+$$ 10^{8} = 100{.}000{.}000 \text{ combinações.} $$
+
+Percebe-se rapidamente que o número de possibilidades cresce de forma extremamente acelerada.
+
+```{python}
+#| label: fig-explosao
+#| fig-cap: "A quantidade de combinações cresce de forma acelerada: aqui, $3^k$ para senhas de $k$ posições com 3 opções cada."
+ks = list(range(1, 9))
+vals = [3**k for k in ks]
+
+fig, ax = plt.subplots(figsize=(6, 3.2))
+ax.bar(ks, vals, color=COR["decisao"])
+ax.set_yscale("log")
+ax.set_xlabel("número de posições ($k$)")
+ax.set_ylabel("combinações (escala log)")
+for k, v in zip(ks, vals):
+    ax.text(k, v, f"{v:,}".replace(",", "."), ha="center", va="bottom", fontsize=7)
+ax.spines[["top", "right"]].set_visible(False)
+plt.tight_layout()
+plt.show()
+```
+
+Muitos problemas reais apresentam exatamente esse comportamento. Nesses casos, testar todas as combinações possíveis pode se tornar muito caro computacionalmente.
+
+O Backtracking surge como uma forma organizada de explorar alternativas, descartando rapidamente caminhos que não possuem chance de gerar uma solução válida.
+
+# O que é Backtracking?
+
+Backtracking é uma técnica de busca utilizada para encontrar soluções em problemas que possuem múltiplas possibilidades.
+
+Sua principal característica é construir a solução gradualmente. Em vez de tentar resolver o problema de uma única vez, o algoritmo adiciona uma escolha por etapa.
+
+Sempre que uma escolha leva a uma situação inválida, o algoritmo retorna para o estado anterior e tenta outra alternativa.
+
+::: {.callout-tip title="Quatro etapas"}
+1. Fazer uma escolha.
+2. Verificar se a escolha continua válida.
+3. Avançar para a próxima etapa.
+4. Voltar atrás caso seja necessário.
+:::
+
+Essa abordagem garante que todas as possibilidades relevantes sejam analisadas.
+
+# Espaço de Busca {#sec-espaco}
+
+O conjunto de todas as possibilidades de um problema é chamado de *espaço de busca*.
+
+Para visualizar esse conceito, imagine uma árvore:
+
+- Cada nó representa uma decisão.
+- Cada ramo representa uma escolha possível.
+
+À medida que avançamos na árvore, novas possibilidades surgem. O papel do algoritmo é percorrer essa árvore até encontrar uma solução válida. A animação abaixo mostra essa exploração em profundidade: um ramo inviável é podado (vermelho) e a busca segue até encontrar a solução (verde).
+
+```{python}
+#| label: fig-arvore-dfs
+#| fig-cap: "Exploração do espaço de busca: o algoritmo desce na árvore, poda um ramo inviável e retorna até encontrar a solução."
+posN = {"A": (0, 3), "B": (-2, 2), "C": (2, 2),
+        "D": (-3, 1), "E": (-1, 1), "F": (1, 1), "G": (3, 1), "H": (-1, 0)}
+edges = [("A", "B"), ("A", "C"), ("B", "D"), ("B", "E"),
+         ("C", "F"), ("C", "G"), ("E", "H")]
+visits = [("A", "tenta"), ("B", "tenta"), ("D", "poda"),
+          ("E", "tenta"), ("H", "solucao")]
+mapa = {"tenta": COR["decisao"], "poda": COR["podado"], "solucao": COR["valido"]}
+titulo = {"tenta": "explora", "poda": "poda (caminho inviável)", "solucao": "solução encontrada"}
+
+fig, ax = plt.subplots(figsize=(5, 3.4))
+
+def draw(k):
+    ax.clear(); ax.axis("off"); ax.set_xlim(-4, 4); ax.set_ylim(-0.6, 3.6)
+    for a, b in edges:
+        xa, ya = posN[a]; xb, yb = posN[b]
+        ax.plot([xa, xb], [ya, yb], color=COR["neutro"], lw=1.5, zorder=1)
+    estado = {}
+    for i in range(k + 1):
+        n, s = visits[i]; estado[n] = s
+    for n, (x, y) in posN.items():
+        s = estado.get(n)
+        face = mapa[s] if s else COR["fundo"]
+        edge = mapa[s] if s else COR["neutro"]
+        ax.scatter([x], [y], s=520, facecolor=face, edgecolor=edge, linewidths=1.6, zorder=2)
+        if s == "poda":
+            ax.text(x, y, "×", ha="center", va="center", color="white", fontsize=15)
+        elif s == "solucao":
+            ax.text(x, y, "✓", ha="center", va="center", color="white", fontsize=12)
+    cur, st = visits[k]
+    ax.set_title(f"Nó {cur}: {titulo[st]}")
+
+ani = animation.FuncAnimation(fig, draw, frames=len(visits), interval=1100, repeat=True)
+plt.close(fig)
+HTML(ani.to_jshtml())
+```
+
+# Soluções Parciais
+
+Uma das ideias mais importantes do Backtracking é o conceito de solução parcial.
+
+Considere o objetivo de montar uma sequência formada por quatro números. Ao invés de tentar construir a sequência completa imediatamente, o algoritmo trabalha em etapas. Em cada etapa o algoritmo verifica se ainda vale a pena continuar explorando aquele caminho. Caso identifique um problema, retorna para a etapa anterior.
+
+```{python}
+#| label: fig-solucao-parcial
+#| fig-cap: "O Backtracking constrói a solução gradualmente, validando cada nova escolha antes de prosseguir."
+seq = [3, 1, 4, 2]
+fig, ax = plt.subplots(figsize=(6, 1.8))
+
+def draw(k):
+    ax.clear(); ax.set_xlim(0, 4); ax.set_ylim(0, 1.2); ax.axis("off")
+    for i in range(4):
+        cheia = i < k
+        cor = COR["valido"] if cheia else COR["fundo"]
+        ax.add_patch(plt.Rectangle((i + 0.05, 0.1), 0.9, 0.8,
+                                   facecolor=cor, edgecolor=COR["neutro"]))
+        if cheia:
+            ax.text(i + 0.5, 0.5, str(seq[i]), ha="center", va="center",
+                    fontsize=18, color="white")
+    parcial = ", ".join(map(str, seq[:k]))
+    ax.set_title(f"Etapa {k}: ({parcial})" if k > 0 else "Início")
+
+ani = animation.FuncAnimation(fig, draw, frames=range(0, 5), interval=950, repeat=True)
+plt.close(fig)
+HTML(ani.to_jshtml())
+```
+
+# O Processo de Retrocesso
+
+O nome Backtracking vem justamente da capacidade de retornar para decisões anteriores.
+
+Suponha que um algoritmo esteja tentando resolver um problema. Após realizar várias escolhas consecutivas, ele descobre que a última decisão torna impossível alcançar uma solução. Nesse momento, em vez de continuar desperdiçando recursos, o algoritmo volta para o último ponto de decisão e tenta outra alternativa. Esse processo pode ocorrer diversas vezes até que uma solução válida seja encontrada.
+
+::: {.callout-tip title="Em outras palavras"}
+Escolhe. Testa. Avança. Erra. Volta. Tenta novamente.
+:::
+
+::: {.callout-note title="Ideia-chave"}
+Esse comportamento é o coração do Backtracking.
+:::
+
+# Poda (Pruning)
+
+Uma importante otimização do Backtracking é chamada de poda, ou *pruning*.
+
+A ideia é simples. Se já sabemos que um caminho não pode levar à solução, não existe motivo para continuar explorando suas ramificações. Em vez disso, o algoritmo descarta imediatamente aquele caminho. Esse é exatamente o ramo marcado em vermelho na animação do espaço de busca (@sec-espaco).
+
+A poda é responsável por tornar o Backtracking muito mais eficiente em diversos problemas.
+
+# O Problema das 4 Rainhas
+
+Um dos exemplos mais tradicionais para explicar Backtracking é o Problema das N-Rainhas.
+
+O objetivo consiste em posicionar quatro rainhas em um tabuleiro de xadrez 4x4. As seguintes restrições devem ser respeitadas:
+
+- Não pode haver duas rainhas na mesma linha.
+- Não pode haver duas rainhas na mesma coluna.
+- Não pode haver duas rainhas na mesma diagonal.
+
+À primeira vista, o problema parece simples. No entanto, diversas configurações possíveis violam pelo menos uma dessas regras.
+
+# Resolvendo as 4 Rainhas com Backtracking
+
+O algoritmo inicia posicionando a primeira rainha. Em seguida, tenta posicionar a segunda. Caso encontre conflito, retorna e tenta outra posição. O processo continua até que todas as rainhas sejam posicionadas corretamente.
+
+Uma solução válida é:
+
+$$ V = (3,\ 1,\ 4,\ 2) $$
+
+Isso significa: Coluna 1 $\rightarrow$ Linha 3; Coluna 2 $\rightarrow$ Linha 1; Coluna 3 $\rightarrow$ Linha 4; Coluna 4 $\rightarrow$ Linha 2. Observe que nenhuma rainha consegue atacar outra.
+
+A animação abaixo executa o Backtracking de verdade: cada quadro mostra uma tentativa (azul), um conflito que força o retorno (vermelho) ou a solução final (verde).
+
+```{python}
+#| label: fig-rainhas
+#| fig-cap: "Backtracking resolvendo as 4 Rainhas: tentativas, retrocessos e a solução $V=(3,1,4,2)$."
+N = 4
+estados = []  # (posicoes coluna->linha, status)
+
+def seguro(pos, col, lin):
+    for c, r in enumerate(pos):
+        if r == lin or abs(r - lin) == abs(c - col):
+            return False
+    return True
+
+def resolve(pos):
+    col = len(pos)
+    if col == N:
+        estados.append((list(pos), "solucao"))
+        return True
+    # percorre as linhas de cima para baixo para encontrar a solução V=(3,1,4,2),
+    # a mesma descrita no texto
+    for lin in reversed(range(N)):
+        if seguro(pos, col, lin):
+            pos.append(lin)
+            estados.append((list(pos), "tenta"))
+            if resolve(pos):
+                return True
+            pos.pop()
+            estados.append((list(pos), "volta"))
+    return False
+
+resolve([])
+cor_status = {"tenta": COR["decisao"], "solucao": COR["valido"], "volta": COR["podado"]}
+texto_status = {"tenta": "posiciona rainha", "solucao": "solução encontrada!", "volta": "conflito: volta"}
+
+fig, ax = plt.subplots(figsize=(3.6, 3.8))
+
+def draw(k):
+    pos, status = estados[k]
+    ax.clear(); ax.set_xlim(0, N); ax.set_ylim(0, N)
+    ax.set_aspect("equal"); ax.axis("off")
+    for c in range(N):
+        for r in range(N):
+            fundo = COR["fundo"] if (c + r) % 2 else "white"
+            ax.add_patch(plt.Rectangle((c, r), 1, 1, facecolor=fundo, edgecolor=COR["neutro"]))
+    cor = cor_status[status]
+    for c, r in enumerate(pos):
+        ax.add_patch(plt.Circle((c + 0.5, r + 0.5), 0.33, color=cor))
+        ax.text(c + 0.5, r + 0.5, "Q", ha="center", va="center", color="white", fontsize=14)
+    ax.set_title(texto_status[status])
+
+ani = animation.FuncAnimation(fig, draw, frames=len(estados), interval=750, repeat=True)
+plt.close(fig)
+HTML(ani.to_jshtml())
+```
+
+# A Árvore de Busca das 4 Rainhas
+
+A busca realizada pelo algoritmo pode ser representada por uma árvore. Cada nível representa a colocação de uma nova rainha.
+
+Quando uma configuração viola alguma restrição:
+
+- o ramo é interrompido;
+- o algoritmo retorna;
+- outra alternativa é explorada.
+
+Cada quadro da animação anterior corresponde a um nó dessa árvore: as tentativas descem um nível, os conflitos podam um ramo e fazem o algoritmo voltar. Esse exemplo demonstra claramente o funcionamento do Backtracking e o benefício da poda.
+
+# Aplicações Práticas
+
+O Backtracking é utilizado em vários problemas conhecidos. Entre eles:
+
+- Sudoku;
+- Quebra-cabeças lógicos;
+- Planejamento de rotas;
+- Escalonamento de tarefas;
+- Inteligência Artificial;
+- Jogos;
+- Problemas envolvendo grafos.
+
+Um dos exemplos mais famosos é o Sudoku. Quando uma posição recebe um número inválido, o algoritmo remove essa escolha e tenta outra alternativa.
+
+# Vantagens e Limitações
+
+## Vantagens
+
+- Simples de compreender.
+- Fácil de implementar.
+- Garante encontrar a solução caso ela exista.
+- Pode ser aplicado em diversos tipos de problemas.
+
+## Limitações
+
+::: {.callout-warning title="Limitações"}
+- Pode consumir muito tempo em problemas grandes.
+- O número de possibilidades pode crescer exponencialmente.
+- Nem sempre é a abordagem mais eficiente disponível.
+:::
+
+Mesmo assim, continua sendo uma das técnicas mais importantes no estudo de algoritmos.
+
+# Conclusão
+
+O Backtracking é uma estratégia baseada em tentativa e erro inteligente.
+
+Ao invés de explorar todas as possibilidades cegamente, o algoritmo constrói soluções passo a passo, verificando constantemente se ainda existe chance de alcançar o resultado desejado. Sempre que identifica um caminho inviável, retorna para a última decisão válida e tenta uma alternativa diferente.
+
+Essa característica torna o Backtracking extremamente útil para problemas envolvendo restrições, combinações e exploração de possibilidades.
+
+Embora apresente limitações em problemas muito grandes, seu valor didático e prático faz com que seja uma das técnicas fundamentais no estudo de algoritmos, grafos e inteligência artificial.
+
+# Referências {.unnumbered}
+
+::: {#refs}
+:::

@@ -1,0 +1,23 @@
+% Figura V8: grade de Sudoku com uma célula em conflito destacada
+% Ilustrativa: dois "5" na mesma linha mostram o conflito detectado.
+\begin{tikzpicture}[scale=0.5]
+  % célula em conflito (realce ao fundo)
+  \fill[btPodado!20] (4,5) rectangle (5,6);
+
+  % grade fina
+  \draw[btNeutro!70, thin] (0,0) grid (9,9);
+  % bordas grossas dos blocos 3x3
+  \draw[btNeutro, very thick] (0,0) rectangle (9,9);
+  \foreach \i in {3,6}{
+    \draw[btNeutro, very thick] (\i,0) -- (\i,9);
+    \draw[btNeutro, very thick] (0,\i) -- (9,\i);
+  }
+
+  % alguns números dados (x/y/n), y medido de baixo para cima
+  \foreach \x/\y/\n in {0/5/5, 1/8/3, 7/7/9, 2/2/7, 6/1/4, 8/0/2, 3/6/1, 5/3/8, 7/4/6}{
+    \node[font=\small, text=btTexto] at (\x+0.5, \y+0.5) {\n};
+  }
+
+  % "5" conflitante na célula destacada (mesma linha do outro 5)
+  \node[font=\small\bfseries, text=btPodado] at (4.5, 5.5) {5};
+\end{tikzpicture}

@@ -1,0 +1,32 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "Backtracking"
+  reader-mode: true
+  page-footer:
+    left: "Backtracking · PUC-SP · Algoritmos em Grafos · 2026"
+
+lang: pt-BR
+bibliography: references.bib
+
+format:
+  html:
+    theme: [cosmo, styles.scss]
+    toc: true
+    toc-title: "Sumário"
+    toc-location: left
+    toc-depth: 2
+    number-sections: true
+    fig-align: center
+    code-fold: true
+    code-tools: true
+    code-summary: "ver código"
+    smooth-scroll: true
+    html-math-method: katex
+
+execute:
+  echo: true
+  warning: false
+  freeze: auto

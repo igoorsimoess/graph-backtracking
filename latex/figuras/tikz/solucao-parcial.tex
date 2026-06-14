@@ -1,0 +1,40 @@
+% Figura V5: construção da solução parcial (3) -> (3,1) -> (3,1,4) -> (3,1,4,2)
+\begin{tikzpicture}[
+    scale=0.9, transform shape,
+    >=Stealth,
+    cel/.style={draw=btNeutro, minimum size=6.5mm, font=\small, inner sep=0pt},
+    cheia/.style={cel, draw=btValido, fill=btValido!18, text=btTexto},
+    vazia/.style={cel, fill=btFundo},
+    rotulo/.style={font=\scriptsize, text=btNeutro},
+  ]
+  % Cada quadro: 4 células; as preenchidas mostram os números escolhidos.
+  % Frame 1: (3)
+  \begin{scope}[shift={(0,0)}]
+    \node[cheia] at (0,0) {3};
+    \node[vazia] at (0.7,0) {}; \node[vazia] at (1.4,0) {}; \node[vazia] at (2.1,0) {};
+    \node[rotulo] at (1.05,-0.65) {Etapa 1};
+  \end{scope}
+  % Frame 2: (3,1)
+  \begin{scope}[shift={(3.6,0)}]
+    \node[cheia] at (0,0) {3}; \node[cheia] at (0.7,0) {1};
+    \node[vazia] at (1.4,0) {}; \node[vazia] at (2.1,0) {};
+    \node[rotulo] at (1.05,-0.65) {Etapa 2};
+  \end{scope}
+  % Frame 3: (3,1,4)
+  \begin{scope}[shift={(7.2,0)}]
+    \node[cheia] at (0,0) {3}; \node[cheia] at (0.7,0) {1}; \node[cheia] at (1.4,0) {4};
+    \node[vazia] at (2.1,0) {};
+    \node[rotulo] at (1.05,-0.65) {Etapa 3};
+  \end{scope}
+  % Frame 4: (3,1,4,2)
+  \begin{scope}[shift={(10.8,0)}]
+    \node[cheia] at (0,0) {3}; \node[cheia] at (0.7,0) {1};
+    \node[cheia] at (1.4,0) {4}; \node[cheia] at (2.1,0) {2};
+    \node[rotulo] at (1.05,-0.65) {Etapa 4};
+  \end{scope}
+
+  % setas entre os quadros
+  \foreach \x in {2.7, 6.3, 9.9}{
+    \draw[->, thick, draw=btNeutro] (\x,0) -- (\x+0.5,0);
+  }
+\end{tikzpicture}

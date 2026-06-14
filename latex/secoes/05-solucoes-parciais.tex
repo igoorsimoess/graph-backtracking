@@ -1,0 +1,25 @@
+% =====================================================================
+%  Secao 5: Soluções Parciais
+% =====================================================================
+\section{Soluções Parciais}
+
+Uma das ideias mais importantes do Backtracking é o conceito de solução parcial.
+
+Considere o objetivo de montar uma sequência formada por quatro números. Ao invés de tentar construir a sequência completa imediatamente, o algoritmo trabalha em etapas.
+
+Por exemplo:
+
+\begin{passos}[Construção passo a passo]
+\begin{description}[leftmargin=4.2em,font=\normalfont\bfseries]
+  \item[Etapa 1:] $(3)$
+  \item[Etapa 2:] $(3,\ 1)$
+  \item[Etapa 3:] $(3,\ 1,\ 4)$
+  \item[Etapa 4:] $(3,\ 1,\ 4,\ 2)$
+\end{description}
+\end{passos}
+
+Em cada etapa o algoritmo verifica se ainda vale a pena continuar explorando aquele caminho. Caso identifique um problema, retorna para a etapa anterior.
+
+\figura{fig:solucao-parcial}%
+  {O Backtracking constrói a solução gradualmente, validando cada nova escolha antes de prosseguir.}%
+  {figuras/tikz/solucao-parcial}

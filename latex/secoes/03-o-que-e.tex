@@ -1,0 +1,27 @@
+% =====================================================================
+%  Secao 3: O que é Backtracking?
+% =====================================================================
+\section{O que é Backtracking?}
+
+Backtracking é uma técnica de busca utilizada para encontrar soluções em problemas que possuem múltiplas possibilidades.
+
+Sua principal característica é construir a solução gradualmente. Em vez de tentar resolver o problema de uma única vez, o algoritmo adiciona uma escolha por etapa.
+
+Sempre que uma escolha leva a uma situação inválida, o algoritmo retorna para o estado anterior e tenta outra alternativa.
+
+O processo pode ser resumido em quatro etapas:
+
+\begin{passos}[Quatro etapas]
+\begin{enumerate}[leftmargin=1.4em]
+  \item Fazer uma escolha.
+  \item Verificar se a escolha continua válida.
+  \item Avançar para a próxima etapa.
+  \item Voltar atrás caso seja necessário.
+\end{enumerate}
+\end{passos}
+
+Essa abordagem garante que todas as possibilidades relevantes sejam analisadas.
+
+\figura{fig:ciclo}%
+  {As quatro etapas do Backtracking formam um ciclo: escolher, validar, avançar e voltar atrás.}%
+  {figuras/tikz/ciclo}

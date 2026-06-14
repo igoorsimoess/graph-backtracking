@@ -1,0 +1,39 @@
+% Figura V7: poda (ramos válidos, inviáveis e não explorados + tesoura)
+\begin{tikzpicture}[
+    nd/.style={circle, draw, minimum size=8mm, thick, font=\small, inner sep=0pt},
+    valido/.style={nd, draw=btValido, fill=btValido!18},
+    podado/.style={nd, draw=btPodado, fill=btPodado!18},
+    neutro/.style={nd, draw=btNeutro, fill=btFundo},
+    ed/.style={draw=btNeutro, thick},
+  ]
+  % nível 0
+  \node[valido] (r) at (0,0) {};
+  % nível 1
+  \node[valido] (a) at (-2.2,-1.7) {};
+  \node[podado] (b) at ( 2.2,-1.7) {};
+  % nível 2
+  \node[neutro] (a1) at (-3.2,-3.4) {};
+  \node[valido] (a2) at (-1.2,-3.4) {};
+  \node[neutro] (b1) at ( 1.2,-3.4) {};
+  \node[neutro] (b2) at ( 3.2,-3.4) {};
+
+  \draw[ed] (r) -- (a);
+  \draw[draw=btPodado, very thick, dashed] (r) -- (b);
+  \draw[ed] (a) -- (a1);
+  \draw[ed] (a) -- (a2);
+  \draw[ed, draw=btNeutro!55] (b) -- (b1);
+  \draw[ed, draw=btNeutro!55] (b) -- (b2);
+
+  % tesoura sobre a aresta podada
+  \node[text=btPodado, font=\large, fill=white, inner sep=1pt] at ($(r)!0.5!(b)$) {\ding{34}};
+
+  % legenda compacta
+  \begin{scope}[shift={(-3.6,-4.6)}]
+    \node[valido, minimum size=4mm] (lv) at (0,0) {};
+    \node[anchor=west, font=\scriptsize, text=btTexto] at (0.3,0) {válido};
+    \node[podado, minimum size=4mm] (lp) at (2.4,0) {};
+    \node[anchor=west, font=\scriptsize, text=btTexto] at (2.7,0) {podado};
+    \node[neutro, minimum size=4mm] (ln) at (4.9,0) {};
+    \node[anchor=west, font=\scriptsize, text=btTexto] at (5.2,0) {não explorado};
+  \end{scope}
+\end{tikzpicture}

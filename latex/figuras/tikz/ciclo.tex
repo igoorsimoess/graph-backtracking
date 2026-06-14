@@ -1,0 +1,17 @@
+% Figura V3: as quatro etapas em ciclo
+\begin{tikzpicture}[
+    node distance=20mm and 34mm,
+    etapa/.style={draw=btDecisao, fill=btFundo, rounded corners, thick,
+                  text width=30mm, align=center, minimum height=12mm, font=\small},
+    fluxo/.style={-{Stealth[length=2.6mm]}, thick, draw=btNeutro},
+  ]
+  \node[etapa] (e1) {1. Escolher};
+  \node[etapa, right=of e1] (e2) {2. Validar};
+  \node[etapa, below=of e2] (e3) {3. Avançar};
+  \node[etapa, below=of e1] (e4) {4. Voltar atrás};
+
+  \draw[fluxo] (e1) -- (e2);
+  \draw[fluxo] (e2) -- (e3);
+  \draw[fluxo] (e3) -- (e4);
+  \draw[fluxo] (e4) -- (e1);
+\end{tikzpicture}

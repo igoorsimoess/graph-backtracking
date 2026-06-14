@@ -1,0 +1,22 @@
+% Figura V4: espaço de busca como árvore de decisões (com um caminho destacado)
+\begin{tikzpicture}[
+    level distance=15mm,
+    every node/.style={circle, draw=btNeutro, fill=btFundo, minimum size=8mm,
+                       font=\small, inner sep=0pt},
+    edge from parent/.style={draw=btNeutro, thick},
+    level 1/.style={sibling distance=38mm},
+    level 2/.style={sibling distance=18mm},
+  ]
+  \node[draw=btDecisao, very thick] {}
+    child[edge from parent/.style={draw=btDecisao, very thick}] {
+      node[draw=btDecisao, very thick] {}
+        child { node {} }
+        child[edge from parent/.style={draw=btValido, very thick}] {
+          node[draw=btValido, fill=btValido!18, very thick] {} }
+    }
+    child {
+      node {}
+        child { node {} }
+        child { node {} }
+    };
+\end{tikzpicture}

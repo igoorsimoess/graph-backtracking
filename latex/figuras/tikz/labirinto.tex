@@ -1,0 +1,26 @@
+% Figura V1: labirinto esquemático (bifurcação, beco sem saída, retorno)
+\begin{tikzpicture}[
+    >=Stealth,
+    corredor/.style={draw=btNeutro!55, line width=3mm, line cap=round},
+    ponto/.style={circle, draw, thick, minimum size=6mm, inner sep=0pt},
+  ]
+  % corredores
+  \draw[corredor] (0,0) -- (3,0);      % início -> bifurcação
+  \draw[corredor] (3,0) -- (3,1.8);    % ramo do beco sem saída
+  \draw[corredor] (3,0) -- (6.2,0);    % ramo que leva à saída
+
+  % pontos notáveis
+  \node[ponto, draw=btNeutro, fill=btFundo]               (ini)  at (0,0)    {};
+  \node[ponto, draw=btDecisao, fill=btDecisao!18]         (bif)  at (3,0)    {};
+  \node[ponto, draw=btPodado,  fill=btPodado!18]          (beco) at (3,1.8)  {};
+  \node[ponto, draw=btValido,  fill=btValido!18]          (sai)  at (6.2,0)  {};
+
+  % rótulos
+  \node[font=\scriptsize, text=btTexto,   below=1mm of ini]  {Início};
+  \node[font=\scriptsize, text=btDecisao, below=1mm of bif]  {bifurcação};
+  \node[font=\scriptsize, text=btPodado,  right=1mm of beco] {beco sem saída};
+  \node[font=\scriptsize, text=btValido,  below=1mm of sai]  {Saída};
+
+  % seta de retorno (do beco de volta à bifurcação)
+  \draw[->, draw=btPodado, thick, dashed] (beco) to[bend left=55] (bif);
+\end{tikzpicture}

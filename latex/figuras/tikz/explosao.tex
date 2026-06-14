@@ -1,0 +1,20 @@
+% Figura V2: explosão combinatória (árvore que se ramifica + contagem)
+\begin{tikzpicture}[
+    level distance=12mm,
+    every node/.style={circle, draw=btDecisao, fill=btFundo, minimum size=4.5mm, inner sep=0pt},
+    edge from parent/.style={draw=btNeutro},
+    level 1/.style={sibling distance=26mm},
+    level 2/.style={sibling distance=8.5mm},
+  ]
+  \node {}
+    child {node {} child {node {}} child {node {}} child {node {}}}
+    child {node {} child {node {}} child {node {}} child {node {}}}
+    child {node {} child {node {}} child {node {}} child {node {}}};
+
+  % Contagem por nível (rótulos à esquerda)
+  \node[rectangle, draw=none, fill=none, font=\small, text=btTexto] at (-3.6, 0)    {$1$};
+  \node[rectangle, draw=none, fill=none, font=\small, text=btTexto] at (-3.6, -1.2) {$3$};
+  \node[rectangle, draw=none, fill=none, font=\small, text=btTexto] at (-3.6, -2.4) {$9$};
+  \node[rectangle, draw=none, fill=none, font=\small\itshape, text=btNeutro, align=left, anchor=west]
+    at (2.6, -1.2) {$\dots$ e segue\\ crescendo};
+\end{tikzpicture}

@@ -1,0 +1,53 @@
+% =====================================================================
+%  pacotes.tex  ->  todos os \usepackage do projeto
+%  Compilar com pdfLaTeX (codificacao UTF-8) ou, se preferir fontes
+%  modernas, com LuaLaTeX/XeLaTeX (basta trocar o bloco de fontes).
+% =====================================================================
+
+% ---------- Idioma e codificacao (pdfLaTeX) --------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+
+% ---------- Tipografia -----------------------------------------------
+\usepackage{lmodern}      % fonte base limpa; trocar por libertinus se desejar
+\usepackage{microtype}    % ajuste fino de espacamento (cara de artigo)
+
+% ---------- Layout da pagina -----------------------------------------
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{setspace}
+\usepackage{titlesec}     % titulos de secao estilizados (ver estilo.tex)
+\usepackage{enumitem}     % listas mais limpas
+
+% ---------- Cor e caixas didaticas -----------------------------------
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+
+% ---------- Figuras e diagramas --------------------------------------
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usetikzlibrary{trees,positioning,arrows.meta,shapes.geometric,calc,fit,backgrounds}
+
+% ---------- Matematica -----------------------------------------------
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+% ---------- Simbolos (tesoura da poda, etc.) -------------------------
+\usepackage{pifont}
+
+% ---------- Links ----------------------------------------------------
+\usepackage[hidelinks]{hyperref}
+
+% ---------- Bibliografia (ABNT) --------------------------------------
+% Requer compilacao com biber. Se o Overleaf reclamar do estilo abnt,
+% trocar 'style=abnt' por 'style=numeric' temporariamente.
+\usepackage[backend=biber,style=abnt]{biblatex}
+\addbibresource{referencias/referencias.bib}
+
+% ---------- Pacotes de dominio (ativar quando produzir as figuras) ---
+% \usepackage{chessboard}  % tabuleiro das N-Rainhas
+% \usepackage{xskak}
+% \usepackage{sudoku}      % grade de Sudoku
+% \usepackage{animate}     % animacoes embutidas no PDF (Adobe Reader)

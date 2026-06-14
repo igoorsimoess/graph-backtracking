@@ -1,0 +1,31 @@
+# macOS
+.DS_Store
+
+# Python / venv (qualquer nome de ambiente)
+.venv/
+**/.venv/
+venv/
+**/venv/
+web/backtracking/
+**/pyvenv.cfg
+**/__pycache__/
+*.pyc
+
+# Quarto (saída e cache de render)
+web/_site/
+web/.quarto/
+web/_freeze/
+
+# LaTeX (artefatos de compilação)
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.bcf
+*.blg
+*.run.xml
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+latex/main.pdf

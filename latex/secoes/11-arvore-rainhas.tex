@@ -1,0 +1,20 @@
+% =====================================================================
+%  Secao 11: A Árvore de Busca das 4 Rainhas
+% =====================================================================
+\section{A Árvore de Busca das 4 Rainhas}
+
+A busca realizada pelo algoritmo pode ser representada por uma árvore. Cada nível representa a colocação de uma nova rainha.
+
+Quando uma configuração viola alguma restrição:
+
+\begin{itemize}[leftmargin=1.4em]
+  \item o ramo é interrompido;
+  \item o algoritmo retorna;
+  \item outra alternativa é explorada.
+\end{itemize}
+
+\figura{fig:arvore-rainhas}%
+  {Diversos ramos são descartados antes que a solução válida seja encontrada.}%
+  {figuras/tikz/arvore-rainhas}
+
+Esse exemplo demonstra claramente o funcionamento do Backtracking e o benefício da poda.
