@@ -9,7 +9,7 @@ date-format: "YYYY"
 abstract: |
   Diversos problemas computacionais exigem a exploração de múltiplas possibilidades até que uma solução válida seja encontrada. Em muitos casos, testar todas as alternativas é inviável devido à grande quantidade de combinações possíveis. Para lidar com esse desafio, foi desenvolvida a técnica de Backtracking, um método que constrói soluções gradualmente e retorna para estados anteriores sempre que identifica que um determinado caminho não levará ao resultado desejado.
 
-  Este trabalho apresenta os conceitos fundamentais do Backtracking, suas características, seu funcionamento e aplicações práticas, utilizando exemplos simples e intuitivos para facilitar o entendimento do leitor.
+  Este trabalho apresenta os conceitos fundamentais do Backtracking, suas características, seu funcionamento e aplicações práticas, utilizando exemplos simples e intuitivos para facilitar o entendimento do leitor. O material é voltado a leitores curiosos, sem familiaridade prévia com Backtracking ou Programação Dinâmica, mas interessados em entender como os computadores resolvem problemas.
 abstract-title: "Resumo"
 nocite: |
   @*
@@ -51,6 +51,10 @@ O Backtracking é uma estratégia baseada em tentativa e erro inteligente. Ao in
 :::
 
 **Palavras-chave:** Backtracking, Grafos, Algoritmos, Busca Exaustiva, Árvores de Busca.
+
+# Parte I: Entendendo o Backtracking {.unnumbered}
+
+Antes de resolver qualquer problema, precisamos construir a intuição. Nesta primeira parte, vemos o que é o Backtracking, por que ele foi criado, como ele enxerga um problema na forma de uma árvore de busca e quais ideias, como o retrocesso e a poda, o tornam eficiente.
 
 # Introdução
 
@@ -241,6 +245,10 @@ Isso ficará concreto mais adiante, no problema das 4 Rainhas: assim que duas ra
 
 A poda é responsável por tornar o Backtracking muito mais eficiente em diversos problemas.
 
+# Parte II: Backtracking na prática {.unnumbered}
+
+Agora, precisamos usar o que aprendemos. Nesta parte, colocamos o Backtracking em ação: primeiro em um exemplo completo, o problema das 4 Rainhas, acompanhando passo a passo a construção da solução, e depois em problemas conhecidos do dia a dia, onde a mesma técnica resolve desafios reais.
+
 # O Problema das 4 Rainhas
 
 Para ver todas as ideias anteriores funcionando juntas, vamos a um exemplo clássico. Um dos problemas mais tradicionais para explicar Backtracking é o Problema das N-Rainhas.
@@ -346,6 +354,10 @@ O Backtracking é utilizado em vários problemas conhecidos. Entre eles:
 - Problemas envolvendo grafos.
 
 Um dos exemplos mais famosos é o Sudoku. Quando uma posição recebe um número inválido, o algoritmo remove essa escolha e tenta outra alternativa. A cada célula preenchida, ele verifica as três regras do jogo (linha, coluna e bloco 3x3); se a verificação falha, o número é descartado na hora, evitando preencher o restante do tabuleiro a partir de uma escolha que já se sabe inválida. É a poda aplicada a um problema do dia a dia.
+
+# Parte III: Balanço e conclusão {.unnumbered}
+
+Para fechar, fazemos um balanço honesto da técnica: quando o Backtracking é a melhor escolha, onde ele encontra limites e por que continua sendo uma das ferramentas fundamentais no estudo de algoritmos.
 
 # Vantagens e Limitações
 
