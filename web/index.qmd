@@ -18,10 +18,11 @@ nocite: |
 ```{python}
 #| label: setup
 #| include: false
+import base64
 import matplotlib.pyplot as plt
 from matplotlib import animation
 from matplotlib import rcParams
-from IPython.display import Image  # exibe GIFs animados (autoplay + loop, sem controles)
+from IPython.display import HTML
 
 # paleta consistente com a versão LaTeX
 COR = {
@@ -31,8 +32,18 @@ COR = {
     "neutro":  "#8A8F98",
     "fundo":   "#F4F6F8",
 }
-rcParams["animation.embed_limit"] = 60
 rcParams["font.size"] = 11
+
+# Exibe um GIF como imagem animada (autoplay + loop infinito, sem controles),
+# embutido em base64 para o HTML ficar autossuficiente ao publicar.
+def gif_fig(caminho, legenda):
+    dados = base64.b64encode(open(caminho, "rb").read()).decode()
+    return HTML(
+        '<figure style="text-align:center;margin:0">'
+        f'<img src="data:image/gif;base64,{dados}" style="max-width:100%">'
+        f'<figcaption style="color:#8A8F98;font-size:0.9rem;margin-top:.4rem">{legenda}</figcaption>'
+        '</figure>'
+    )
 ```
 
 ::: {.callout-important title="Em resumo" appearance="default"}
@@ -139,7 +150,6 @@ Essa árvore é, na verdade, um grafo: os estados do problema são os vértices 
 
 ```{python}
 #| label: fig-arvore-dfs
-#| fig-cap: "Exploração do espaço de busca: o algoritmo desce na árvore, poda um ramo inviável e retorna até encontrar a solução."
 posN = {"A": (0, 3), "B": (-2, 2), "C": (2, 2),
         "D": (-3, 1), "E": (-1, 1), "F": (1, 1), "G": (3, 1), "H": (-1, 0)}
 edges = [("A", "B"), ("A", "C"), ("B", "D"), ("B", "E"),
@@ -174,7 +184,7 @@ def draw(k):
 ani = animation.FuncAnimation(fig, draw, frames=len(visits), interval=1100)
 ani.save("arvore.gif", writer="pillow", fps=0.9)
 plt.close(fig)
-Image("arvore.gif")
+gif_fig("arvore.gif", "Exploração do espaço de busca: o algoritmo desce na árvore, poda um ramo inviável e retorna até encontrar a solução.")
 ```
 
 # Soluções Parciais
@@ -185,7 +195,6 @@ Considere o objetivo de montar uma sequência formada por quatro números. Ao in
 
 ```{python}
 #| label: fig-solucao-parcial
-#| fig-cap: "O Backtracking constrói a solução gradualmente, validando cada nova escolha antes de prosseguir."
 seq = [3, 1, 4, 2]
 fig, ax = plt.subplots(figsize=(6, 1.8))
 
@@ -205,7 +214,7 @@ def draw(k):
 ani = animation.FuncAnimation(fig, draw, frames=range(0, 5), interval=950)
 ani.save("solucao.gif", writer="pillow", fps=1.05)
 plt.close(fig)
-Image("solucao.gif")
+gif_fig("solucao.gif", "O Backtracking constrói a solução gradualmente, validando cada nova escolha antes de prosseguir.")
 ```
 
 # O Processo de Retrocesso
@@ -260,7 +269,6 @@ A animação abaixo executa o Backtracking de verdade: cada quadro mostra uma te
 
 ```{python}
 #| label: fig-rainhas
-#| fig-cap: "Backtracking resolvendo as 4 Rainhas: tentativas, retrocessos e a solução $V=(3,1,4,2)$."
 N = 4
 estados = []  # (posicoes coluna->linha, status)
 
@@ -310,7 +318,7 @@ def draw(k):
 ani = animation.FuncAnimation(fig, draw, frames=len(estados), interval=750)
 ani.save("rainhas.gif", writer="pillow", fps=1.3)
 plt.close(fig)
-Image("rainhas.gif")
+gif_fig("rainhas.gif", "Backtracking resolvendo as 4 Rainhas: tentativas, retrocessos e a solução V = (3, 1, 4, 2).")
 ```
 
 # A Árvore de Busca das 4 Rainhas
