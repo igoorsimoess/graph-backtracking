@@ -60,6 +60,6 @@ quarto publish gh-pages
 
 ## Observações
 
-- As animações são geradas com `matplotlib.animation` e embutidas como players HTML (`to_jshtml`). Não geram arquivos `.gif` por padrão; se preferir GIFs salvos, dá para trocar por `ani.save("nome.gif", writer="pillow")`.
+- As animações são geradas com `matplotlib.animation`, salvas como **GIF** (`writer="pillow"`) e exibidas com `IPython.display.Image`. Assim tocam automaticamente em loop infinito, sem controles de play/pause (comportamento de GIF). Os arquivos `.gif` são criados no render e ficam fora do Git (ver `.gitignore`).
 - O código de cada animação aparece recolhido ("ver código"), mantendo o visual de artigo mas permitindo inspecionar a simulação (estilo notebook).
 - Para citações no padrão ABNT, baixe um arquivo CSL da ABNT e adicione `csl: abnt.csl` ao `_quarto.yml`. Sem isso, o Quarto usa o estilo padrão.

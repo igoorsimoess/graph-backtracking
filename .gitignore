@@ -16,6 +16,9 @@ web/_site/
 web/.quarto/
 web/_freeze/
 
+# GIFs gerados pelas animações no render
+web/*.gif
+
 # LaTeX (artefatos de compilação)
 *.aux
 *.log
