@@ -8,8 +8,10 @@ O conjunto de todas as possibilidades de um problema é chamado de \emph{espaço
 Para visualizar esse conceito, imagine uma árvore:
 
 \begin{itemize}[leftmargin=1.4em]
-  \item Cada nó representa uma decisão.
-  \item Cada ramo representa uma escolha possível.
+  \item A \emph{raiz} é o ponto de partida, antes de qualquer decisão.
+  \item Cada \emph{nó} representa uma decisão.
+  \item Cada \emph{ramo} representa uma escolha possível.
+  \item As \emph{folhas} são os nós finais, onde um caminho termina.
 \end{itemize}
 
 À medida que avançamos na árvore, novas possibilidades surgem.
@@ -19,3 +21,5 @@ Para visualizar esse conceito, imagine uma árvore:
   {figuras/tikz/espaco-busca}
 
 O papel do algoritmo é percorrer essa árvore até encontrar uma solução válida.
+
+Essa árvore é, na verdade, um grafo: os estados do problema são os vértices e as escolhas são as arestas que os conectam. Por isso o Backtracking está diretamente ligado ao estudo de grafos. A forma como ele percorre a árvore corresponde a uma \emph{busca em profundidade} (DFS): o algoritmo desce o máximo possível por um caminho e, ao esbarrar em um beco sem saída, volta para tentar outro, exatamente como no labirinto da introdução.

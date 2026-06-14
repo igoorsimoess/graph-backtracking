@@ -20,7 +20,21 @@ O processo pode ser resumido em quatro etapas:
 \end{enumerate}
 \end{passos}
 
-Essa abordagem garante que todas as possibilidades relevantes sejam analisadas.
+Esse mesmo procedimento pode ser descrito de forma genérica em pseudocódigo:
+
+\begin{pseudocodigo}[Esqueleto do Backtracking]
+resolver(solução\_parcial):\\
+\quad se solução\_parcial é completa:\\
+\quad\quad registrar solução e retornar verdadeiro\\
+\quad para cada escolha possível:\\
+\quad\quad se a escolha é válida:\\
+\quad\quad\quad aplicar a escolha\\
+\quad\quad\quad se resolver(solução\_parcial estendida): retornar verdadeiro\\
+\quad\quad\quad desfazer a escolha \textcolor{btPodado}{(retrocesso)}\\
+\quad retornar falso
+\end{pseudocodigo}
+
+Essa abordagem garante que todas as possibilidades relevantes sejam analisadas. Pode-se pensar no Backtracking como uma busca exaustiva organizada: no pior caso ele ainda é capaz de examinar todas as possibilidades, mas, na prática, evita explorar caminhos que já se sabe que não levarão a uma solução.
 
 \figura{fig:ciclo}%
   {As quatro etapas do Backtracking formam um ciclo: escolher, validar, avançar e voltar atrás.}%

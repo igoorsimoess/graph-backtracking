@@ -38,6 +38,16 @@
   boxrule=0.8pt, arc=3pt
 }
 
+% ---------- Caixa: Pseudocódigo --------------------------------------
+\newtcolorbox{pseudocodigo}[1][Pseudocódigo]{
+  enhanced, breakable,
+  colback=btFundo, colframe=btTexto, colbacktitle=btTexto,
+  fonttitle=\bfseries, coltitle=white, title=#1,
+  fontupper=\ttfamily\small,
+  left=10pt, right=10pt, top=8pt, bottom=8pt,
+  boxrule=0.6pt, arc=3pt
+}
+
 % ---------------------------------------------------------------------
 %  \figura{rotulo}{legenda}{caminho do arquivo TikZ (sem extensao)}
 %  Insere uma figura TikZ finalizada, centralizada, com legenda e label.

@@ -5,6 +5,8 @@
 
 O algoritmo inicia posicionando a primeira rainha. Em seguida, tenta posicionar a segunda. Caso encontre conflito, retorna e tenta outra posição. O processo continua até que todas as rainhas sejam posicionadas corretamente.
 
+Para representar uma configuração do tabuleiro de forma compacta, usamos um vetor com quatro posições: cada posição corresponde a uma coluna e o número guardado indica em qual linha está a rainha daquela coluna. Assim, um único vetor descreve onde estão as quatro rainhas.
+
 Uma solução válida é:
 \[
   V = (3,\ 1,\ 4,\ 2)

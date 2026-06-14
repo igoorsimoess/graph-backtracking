@@ -7,6 +7,8 @@ Uma importante otimização do Backtracking é chamada de poda, ou \emph{pruning
 
 A ideia é simples. Se já sabemos que um caminho não pode levar à solução, não existe motivo para continuar explorando suas ramificações. Em vez disso, o algoritmo descarta imediatamente aquele caminho.
 
+Isso ficará concreto mais adiante, no problema das 4 Rainhas: assim que duas rainhas se atacam, não há sentido em continuar posicionando as demais, e todo o ramo abaixo daquela configuração é descartado de uma só vez.
+
 \figura{fig:poda}%
   {Ramos inviáveis são eliminados antecipadamente, reduzindo significativamente o esforço computacional.}%
   {figuras/tikz/poda}

@@ -106,7 +106,21 @@ Sempre que uma escolha leva a uma situação inválida, o algoritmo retorna para
 4. Voltar atrás caso seja necessário.
 :::
 
-Essa abordagem garante que todas as possibilidades relevantes sejam analisadas.
+Esse mesmo procedimento pode ser descrito de forma genérica em pseudocódigo:
+
+```text
+resolver(solução_parcial):
+    se solução_parcial é completa:
+        registrar solução e retornar verdadeiro
+    para cada escolha possível:
+        se a escolha é válida:
+            aplicar a escolha
+            se resolver(solução_parcial estendida): retornar verdadeiro
+            desfazer a escolha   (retrocesso)
+    retornar falso
+```
+
+Essa abordagem garante que todas as possibilidades relevantes sejam analisadas. Pode-se pensar no Backtracking como uma busca exaustiva organizada: no pior caso ele ainda é capaz de examinar todas as possibilidades, mas, na prática, evita explorar caminhos que já se sabe que não levarão a uma solução.
 
 # Espaço de Busca {#sec-espaco}
 
@@ -114,10 +128,14 @@ O conjunto de todas as possibilidades de um problema é chamado de *espaço de b
 
 Para visualizar esse conceito, imagine uma árvore:
 
-- Cada nó representa uma decisão.
-- Cada ramo representa uma escolha possível.
+- A *raiz* é o ponto de partida, antes de qualquer decisão.
+- Cada *nó* representa uma decisão.
+- Cada *ramo* representa uma escolha possível.
+- As *folhas* são os nós finais, onde um caminho termina.
 
-À medida que avançamos na árvore, novas possibilidades surgem. O papel do algoritmo é percorrer essa árvore até encontrar uma solução válida. A animação abaixo mostra essa exploração em profundidade: um ramo inviável é podado (vermelho) e a busca segue até encontrar a solução (verde).
+À medida que avançamos na árvore, novas possibilidades surgem. O papel do algoritmo é percorrer essa árvore até encontrar uma solução válida.
+
+Essa árvore é, na verdade, um grafo: os estados do problema são os vértices e as escolhas são as arestas que os conectam. Por isso o Backtracking está diretamente ligado ao estudo de grafos, e a forma como ele percorre a árvore corresponde a uma *busca em profundidade* (DFS): desce o máximo possível por um caminho e, ao esbarrar em um beco sem saída, volta para tentar outro, como no labirinto da introdução. A animação abaixo mostra essa exploração em profundidade: um ramo inviável é podado (vermelho) e a busca segue até encontrar a solução (verde).
 
 ```{python}
 #| label: fig-arvore-dfs
@@ -208,11 +226,13 @@ Uma importante otimização do Backtracking é chamada de poda, ou *pruning*.
 
 A ideia é simples. Se já sabemos que um caminho não pode levar à solução, não existe motivo para continuar explorando suas ramificações. Em vez disso, o algoritmo descarta imediatamente aquele caminho. Esse é exatamente o ramo marcado em vermelho na animação do espaço de busca (@sec-espaco).
 
+Isso ficará concreto mais adiante, no problema das 4 Rainhas: assim que duas rainhas se atacam, não há sentido em continuar posicionando as demais, e todo o ramo abaixo daquela configuração é descartado de uma só vez.
+
 A poda é responsável por tornar o Backtracking muito mais eficiente em diversos problemas.
 
 # O Problema das 4 Rainhas
 
-Um dos exemplos mais tradicionais para explicar Backtracking é o Problema das N-Rainhas.
+Para ver todas as ideias anteriores funcionando juntas, vamos a um exemplo clássico. Um dos problemas mais tradicionais para explicar Backtracking é o Problema das N-Rainhas.
 
 O objetivo consiste em posicionar quatro rainhas em um tabuleiro de xadrez 4x4. As seguintes restrições devem ser respeitadas:
 
@@ -225,6 +245,8 @@ O objetivo consiste em posicionar quatro rainhas em um tabuleiro de xadrez 4x4. 
 # Resolvendo as 4 Rainhas com Backtracking
 
 O algoritmo inicia posicionando a primeira rainha. Em seguida, tenta posicionar a segunda. Caso encontre conflito, retorna e tenta outra posição. O processo continua até que todas as rainhas sejam posicionadas corretamente.
+
+Para representar uma configuração do tabuleiro de forma compacta, usamos um vetor com quatro posições: cada posição corresponde a uma coluna e o número guardado indica em qual linha está a rainha daquela coluna. Assim, um único vetor descreve onde estão as quatro rainhas.
 
 Uma solução válida é:
 
@@ -312,7 +334,7 @@ O Backtracking é utilizado em vários problemas conhecidos. Entre eles:
 - Jogos;
 - Problemas envolvendo grafos.
 
-Um dos exemplos mais famosos é o Sudoku. Quando uma posição recebe um número inválido, o algoritmo remove essa escolha e tenta outra alternativa.
+Um dos exemplos mais famosos é o Sudoku. Quando uma posição recebe um número inválido, o algoritmo remove essa escolha e tenta outra alternativa. A cada célula preenchida, ele verifica as três regras do jogo (linha, coluna e bloco 3x3); se a verificação falha, o número é descartado na hora, evitando preencher o restante do tabuleiro a partir de uma escolha que já se sabe inválida. É a poda aplicada a um problema do dia a dia.
 
 # Vantagens e Limitações
 
@@ -332,6 +354,10 @@ Um dos exemplos mais famosos é o Sudoku. Quando uma posição recebe um número
 :::
 
 Mesmo assim, continua sendo uma das técnicas mais importantes no estudo de algoritmos.
+
+::: {.callout-note title="E a Programação Dinâmica?"}
+Quando os mesmos subproblemas aparecem repetidas vezes durante a busca, vale a pena guardar resultados já calculados para reaproveitá-los. É aí que entram técnicas como a memoização e a Programação Dinâmica: enquanto o Backtracking *explora* as possibilidades, a Programação Dinâmica *reaproveita* soluções de subproblemas que se repetem.
+:::
 
 # Conclusão
 
