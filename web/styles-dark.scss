@@ -1,36 +1,40 @@
 /*-- scss:defaults --*/
-// Paleta consistente com a versão LaTeX
-$primary:    #1F6FEB;  // decisão
-$body-color: #1B1F24;
-$link-color: #1F6FEB;
+// Modo noturno: base escura (sobre o tema darkly)
+$body-bg:    #14161a;
+$body-color: #d7dade;
+$link-color: #7fb0ff;
 
 $font-size-root: 17px;
 
 /*-- scss:rules --*/
-// cores semânticas reaproveitadas (válido / podado / não explorado)
+// cores semânticas reaproveitadas (iguais à versão clara)
 :root {
   --bt-decisao: #1F6FEB;
   --bt-valido:  #2E9E5B;
   --bt-podado:  #D1453B;
   --bt-neutro:  #8A8F98;
-  --bt-fundo:   #F4F6F8;
+  --bt-fundo:   #20242b;
 }
 
 .quarto-title-block .quarto-title .title { font-weight: 700; }
-
-// Callouts um pouco mais suaves
 .callout { border-radius: 8px; }
 
-// Legendas de figura
+// As figuras/GIFs têm fundo claro: damos um cartão branco para destacá-las no escuro
+.cell-output-display img,
+figure img {
+  background: #fff;
+  border-radius: 8px;
+  padding: 6px;
+}
+
 figcaption, .figure-caption {
-  color: var(--bt-neutro);
+  color: #9aa0a8;
   font-size: 0.9rem;
 }
 
-// Controles de animação centralizados
 .cell-output-display { text-align: center; }
 
-// Banner decorativo no topo (estética de caminhos de exploração)
+// Banner decorativo (mesmo do modo claro; já tem fundo escuro próprio)
 .bt-hero {
   width: 100%;
   height: 170px;

@@ -13,7 +13,10 @@ bibliography: references.bib
 
 format:
   html:
-    theme: [cosmo, styles.scss]
+    theme:
+      light: [cosmo, styles.scss]
+      dark: [darkly, styles-dark.scss]
+    include-before-body: assets/hero.html
     toc: true
     toc-title: "Sumário"
     toc-location: left
