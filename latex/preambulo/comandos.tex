@@ -4,7 +4,7 @@
 
 % ---------- Caixa: Ideia-chave ---------------------------------------
 \newtcolorbox{ideiachave}[1][Ideia-chave]{
-  enhanced, breakable,
+  enhanced,
   colback=btFundo, colframe=btDecisao,
   fonttitle=\bfseries, title=#1,
   left=10pt, right=10pt, top=8pt, bottom=8pt,
@@ -13,7 +13,7 @@
 
 % ---------- Caixa: Passo a passo -------------------------------------
 \newtcolorbox{passos}[1][Passo a passo]{
-  enhanced, breakable,
+  enhanced,
   colback=white, colframe=btValido,
   fonttitle=\bfseries, title=#1,
   left=10pt, right=10pt, top=8pt, bottom=8pt,
@@ -22,7 +22,7 @@
 
 % ---------- Caixa: Atencao / limitacao -------------------------------
 \newtcolorbox{atencao}[1][Atencao]{
-  enhanced, breakable,
+  enhanced,
   colback=white, colframe=btPodado,
   fonttitle=\bfseries, title=#1,
   left=10pt, right=10pt, top=8pt, bottom=8pt,
@@ -31,7 +31,7 @@
 
 % ---------- Caixa: Quadro-resumo executivo ---------------------------
 \newtcolorbox{quadroresumo}[1][Em resumo]{
-  enhanced, breakable,
+  enhanced,
   colback=btFundo, colframe=btNeutro,
   fonttitle=\bfseries\color{btTexto}, title=#1,
   left=10pt, right=10pt, top=8pt, bottom=8pt,
@@ -40,7 +40,7 @@
 
 % ---------- Caixa: Pseudocódigo --------------------------------------
 \newtcolorbox{pseudocodigo}[1][Pseudocódigo]{
-  enhanced, breakable,
+  enhanced,
   colback=btFundo, colframe=btTexto, colbacktitle=btTexto,
   fonttitle=\bfseries, coltitle=white, title=#1,
   fontupper=\ttfamily\small,
@@ -53,7 +53,7 @@
 %  Insere uma figura TikZ finalizada, centralizada, com legenda e label.
 % ---------------------------------------------------------------------
 \newcommand{\figura}[3]{%
-  \begin{figure}[H]
+  \begin{figure}[htbp]
     \centering
     \input{#3}
     \caption{#2}
